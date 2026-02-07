@@ -1,12 +1,12 @@
-import React from "react";
-
-console [data, setData] = React.useState({
-    topText: "",
-    bottomText: "",
-    randomImage: "http://i.imgflip.com/1bij.jpg"
-})
+import React from "react"
 
 export default function Main() {
+    const [meme, setMeme] = React.useState({
+    topText: "One does not simply",
+    bottomText: "Walk into Mordor",
+    imageUrl: "http://i.imgflip.com/1bij.jpg"
+    })
+
     return (
         <main>
             <div className="form">
@@ -28,9 +28,9 @@ export default function Main() {
                 <button>Get a new meme image 🖼</button>
             </div>
             <div className="meme">
-                <img src={data.randomImage} />
-                <span className="top">{data.topText}</span>
-                <span className="bottom">{data.bottomText}</span>
+                <img src={meme.imageUrl}/>
+                <span className="top">{meme.topText}</span>
+                <span className="bottom">{meme.bottomText}</span>
             </div>
         </main>
     )
