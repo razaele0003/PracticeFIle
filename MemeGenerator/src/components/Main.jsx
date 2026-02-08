@@ -6,6 +6,7 @@ export default function Main() {
     bottomText: "Walk into Mordor",
     imageUrl: "http://i.imgflip.com/1bij.jpg"
     })
+    const [allMemes, setAllMemes] = React.useState([])
 
     function handleChange(event){
         const {value, name} = event.currentTarget
@@ -16,9 +17,15 @@ export default function Main() {
         
     }
 
-    
+    React.useEffect(() => {
+        fetch("https://api.imgflip.com/get_memes")
+            .then(res => res.json())
+            .then(data => {
+                setAllMemes(data.data.memes)
+            })
+    }, [])
 
-    
+
     return (
         <main>
             <div className="form">
@@ -43,7 +50,7 @@ export default function Main() {
                         
                     />
                 </label>
-                <button>Get a new meme image 🖼</button>
+                <button >Get a new meme image 🖼</button>
             </div>
             <div className="meme">
                 <img src={meme.imageUrl}/>
