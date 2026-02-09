@@ -1,6 +1,19 @@
+import Die from "../components/Die"
+
 export default function Main() {
   return(
-          <main>
-            <h1>sfdasdf</h1>
-          </main>
+              <main>
+            <div className="dice-container">
+                <Die value={1} />
+                <Die value={2} />
+                <Die value={3} />
+                <Die value={4} />
+                <Die value={5} />
+                <Die value={1} />
+                <Die value={1} />
+                <Die value={1} />
+                <Die value={1} />
+                <Die value={1} />
+            </div>
+        </main>
   )}
