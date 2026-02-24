@@ -1,0 +1,31 @@
+name: Discord Notification
+on:
+  push:
+  pull_request:
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set image URL based on event
+        id: vars
+        run: |
+          if [ "${{ github.event_name }}" == "push" ]; then
+            echo "https://github.com/razaele0003/PracticeFIle/blob/main/Holder/Push.jpg?raw=true" >> $GITHUB_OUTPUT
+          else
+            echo "https://github.com/razaele0003/PracticeFIle/blob/main/Holder/Push.jpg?raw=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Send Discord message with image
+        run: |
+          curl -X POST "${{ secrets.DISCORD_WEBHOOK }}" \
+          -H "Content-Type: application/json" \
+          -d '{
+            "username": "Kendroke",
+            "avatar_url": "https://github.com/razaele0003/PracticeFIle/blob/main/Holder/Prof.jpg?raw=true",
+            "content": "🚀 **GitHub Update!**\nEvent: '"${{ github.event_name }}"'\nRepository: '"${{ github.repository }}"'\nBranch: '"${{ github.ref_name }}"'",
+            "embeds": [{
+              "image": {
+                "url": "'"${{ steps.vars.outputs.image_url }}"'"
+              }
+            }]
+          }'
