@@ -1,9 +1,9 @@
 import Die from "./components/Die"
-import React from "react"
+import Reacts from "react"
 
 
 export default function App() {
-    const [number, setNumber] = React.useState(generateAllNewDice())
+    const [number, setNumber] = Reacts.useState(generateAllNewDice())
     
     function generateAllNewDice() {
         return new Array(10)
