@@ -20,7 +20,7 @@ jobs:
           curl -X POST "${{ secrets.DISCORD_WEBHOOK }}" \
           -H "Content-Type: application/json" \
           -d '{
-            "username": "The bot",
+            "username": "KenBoth",
             "avatar_url": "https://raw.githubusercontent.com/razaele0003/PracticeFIle/main/Holder/Prof.jpg",
             "content": "🚀 **GitHub Update!**\nEvent: '"${{ github.event_name }}"'\nRepository: '"${{ github.repository }}"'\nBranch: '"${{ github.ref_name }}"'",
             "embeds": [{
