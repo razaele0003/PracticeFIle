@@ -22,7 +22,7 @@ jobs:
           -d '{
             "username": "KenBoth",
             "avatar_url": "https://raw.githubusercontent.com/razaele0003/PracticeFIle/main/Holder/Prof.jpg",
-            "content": "🚀 **GitHub Update!**\nEvent: '"${{ github.event_name }}"'\nRepository: '"${{ github.repository }}"'\nBranch: '"${{ github.ref_name }}"'",
+            "content": "🚀 **GitHub Update!**\nEvent: '"${{ github.event_name }}"'\nRepository: '"${{ github.repository }}"'\nBranch: '"${{ github.ref_name }}"'\nTriggered by: '"${{ github.actor }}"'\nCommit: '"${{ github.sha }}"'",
             "embeds": [{
               "image": {
                 "url": "'"${{ steps.vars.outputs.image_url }}"'"
