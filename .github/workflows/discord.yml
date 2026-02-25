@@ -14,16 +14,45 @@ jobs:
           else
             echo "image_url=https://raw.githubusercontent.com/razaele0003/PracticeFIle/main/Holder/Pull.jpg" >> $GITHUB_OUTPUT
           fi
+          echo "short_sha=$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_OUTPUT
 
       - name: Send Discord message with image
         run: |
           curl -X POST "${{ secrets.DISCORD_WEBHOOK }}" \
           -H "Content-Type: application/json" \
           -d '{
-            "username": "The bot",
+            "username": "KenBoth",
             "avatar_url": "https://raw.githubusercontent.com/razaele0003/PracticeFIle/main/Holder/Prof.jpg",
-            "content": "🚀 **GitHub Update!**\nEvent: '"${{ github.event_name }}"'\nRepository: '"${{ github.repository }}"'\nBranch: '"${{ github.ref_name }}"'",
             "embeds": [{
+              "title": "🚀 GitHub Update!",
+              "color": 5763719,
+              "fields": [
+                {
+                  "name": "Repository",
+                  "value": "['"${{ github.repository }}"'](https://github.com/'"${{ github.repository }}"')",
+                  "inline": true
+                },
+                {
+                  "name": "Ref",
+                  "value": "'"${{ github.ref }}"'",
+                  "inline": true
+                },
+                {
+                  "name": "Event - '"${{ github.event_name }}"'",
+                  "value": "[`'"${{ steps.vars.outputs.short_sha }}"'`](https://github.com/'"${{ github.repository }}"'/commit/'"${{ github.sha }}"') '"${{ github.event.head_commit.message }}"'",
+                  "inline": false
+                },
+                {
+                  "name": "Triggered by",
+                  "value": "'"${{ github.actor }}"'",
+                  "inline": true
+                },
+                {
+                  "name": "Workflow",
+                  "value": "[Discord Notification](https://github.com/'"${{ github.repository }}"'/actions/workflows/discord.yml)",
+                  "inline": true
+                }
+              ],
               "image": {
                 "url": "'"${{ steps.vars.outputs.image_url }}"'"
               }
