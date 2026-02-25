@@ -10,9 +10,9 @@ jobs:
         id: vars
         run: |
           if [ "${{ github.event_name }}" == "push" ]; then
-            echo "image_url=https://raw.githubusercontent.com/razaele0003/PracticeFIle/main/Holder/Push.jpg" >> $GITHUB_OUTPUT
-          else
             echo "image_url=https://raw.githubusercontent.com/razaele0003/PracticeFIle/main/Holder/Pull.jpg" >> $GITHUB_OUTPUT
+          else
+            echo "image_url=https://raw.githubusercontent.com/razaele0003/PracticeFIle/main/Holder/Push.jpg" >> $GITHUB_OUTPUT
           fi
           echo "short_sha=$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_OUTPUT
 
