@@ -14,6 +14,7 @@ jobs:
           else
             echo "image_url=https://raw.githubusercontent.com/razaele0003/PracticeFIle/main/Holder/Pull.jpg" >> $GITHUB_OUTPUT
           fi
+          echo "short_sha=$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_OUTPUT
 
       - name: Send Discord message with image
         run: |
@@ -23,6 +24,7 @@ jobs:
             "username": "KenBoth",
             "avatar_url": "https://raw.githubusercontent.com/razaele0003/PracticeFIle/main/Holder/Prof.jpg",
             "embeds": [{
+              "title": "🚀 Doing Diz Instid of Studying!",
               "color": 5763719,
               "fields": [
                 {
@@ -37,7 +39,7 @@ jobs:
                 },
                 {
                   "name": "Event - '"${{ github.event_name }}"'",
-                  "value": "'"${{ github.sha }}"' '"${{ github.event.head_commit.message }}"'",
+                  "value": "`'"${{ steps.vars.outputs.short_sha }}"'` '"${{ github.event.head_commit.message }}"'",
                   "inline": false
                 },
                 {
