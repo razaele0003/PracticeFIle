@@ -24,12 +24,12 @@ jobs:
             "username": "KenBoth",
             "avatar_url": "https://raw.githubusercontent.com/razaele0003/PracticeFIle/main/Holder/Prof.jpg",
             "embeds": [{
-              "title": "🚀 Doing Diz Instid of Studying!",
+              "title": "🚀 GitHub Update!",
               "color": 5763719,
               "fields": [
                 {
                   "name": "Repository",
-                  "value": "'"${{ github.repository }}"'",
+                  "value": "['"${{ github.repository }}"'](https://github.com/'"${{ github.repository }}"')",
                   "inline": true
                 },
                 {
@@ -39,7 +39,7 @@ jobs:
                 },
                 {
                   "name": "Event - '"${{ github.event_name }}"'",
-                  "value": "`'"${{ steps.vars.outputs.short_sha }}"'` '"${{ github.event.head_commit.message }}"'",
+                  "value": "[`'"${{ steps.vars.outputs.short_sha }}"'`](https://github.com/'"${{ github.repository }}"'/commit/'"${{ github.sha }}"') '"${{ github.event.head_commit.message }}"'",
                   "inline": false
                 },
                 {
@@ -49,7 +49,7 @@ jobs:
                 },
                 {
                   "name": "Workflow",
-                  "value": "Discord Notification",
+                  "value": "[Discord Notification](https://github.com/'"${{ github.repository }}"'/actions/workflows/discord.yml)",
                   "inline": true
                 }
               ],
