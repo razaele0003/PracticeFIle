@@ -8,7 +8,7 @@ export default function App() {
     function generateAllNewDice() {
         return new Array(10)
             .fill(0)
-            .map(() => Math.ceil(Math.random() * 6))
+            .map(() => Math.ceil(Math.random() * 7))
     }
     
      const diceElements = number.map((num, index) => (
