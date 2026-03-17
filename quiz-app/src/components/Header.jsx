@@ -1,43 +1,75 @@
-function Header({ totalQuestions, currentQuestionNum, onToggleDarkMode, darkMode, autoRevealEnabled, onToggleAutoReveal, showResults }) {
+function Header({
+  questionSets,
+  activeSetKey,
+  onChangeSet,
+  totalQuestions,
+  currentQuestionNum,
+  onToggleDarkMode,
+  darkMode,
+  autoRevealEnabled,
+  onToggleAutoReveal,
+  showResults,
+}) {
   return (
     <header className="bg-white dark:bg-slate-800 shadow-sm sticky top-0 z-20 transition-colors">
-      <div className="max-w-4xl mx-auto px-2 sm:px-4 py-2 flex justify-between items-center gap-2">
-        <div>
-          <h1 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <i className="fa-solid fa-scale-balanced text-blue-600 dark:text-blue-400"></i>
-            <span>ECE Law</span>
-            <span className="text-slate-400 dark:text-slate-500 font-normal text-[10px] sm:text-xs ml-1 hidden sm:inline">
-              RA 9292 & Fundamentals
-            </span>
-          </h1>
+      <div className="max-w-4xl mx-auto px-2 sm:px-4 py-2 flex items-center gap-2">
+
+        {/* Brand name */}
+        <div className="flex items-center gap-1.5 flex-shrink-0">
+          <i className="fa-solid fa-scale-balanced text-blue-500 dark:text-blue-400 text-sm"></i>
+          <span className="font-bold text-sm text-slate-800 dark:text-white whitespace-nowrap">BombitzTheBomb</span>
         </div>
 
-        <div className="flex items-center gap-2 sm:gap-3">
+        {/* Set filter dropdown */}
+        <div className="flex-1 min-w-0">
+          <select
+            id="set-filter"
+            value={activeSetKey}
+            onChange={e => onChangeSet(e.target.value)}
+            className="w-full text-xs sm:text-sm font-medium bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-600 rounded-lg px-2 sm:px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer transition-colors"
+          >
+            {questionSets?.map(set => (
+              <option key={set.key} value={set.key}>
+                {set.key === 'all'
+                  ? `⚡ All Questions (${set.questions.length})`
+                  : `${set.label} (${set.questions.length})`}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Right-side controls */}
+        <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
           {!showResults && (
-            <div className="text-[10px] sm:text-xs font-medium text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-700 px-2 sm:px-3 py-0.5 rounded-full whitespace-nowrap">
-              <span>{currentQuestionNum}</span> / <span>{totalQuestions}</span>
+            <div className="text-[10px] sm:text-xs font-medium text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-700 px-2 py-1 rounded-full whitespace-nowrap border border-slate-200 dark:border-slate-600">
+              {currentQuestionNum} / {totalQuestions}
             </div>
           )}
 
           <button
             onClick={onToggleDarkMode}
-            className="theme-toggle p-1.5 sm:p-2 rounded-lg bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
+            className="p-1.5 sm:p-2 rounded-lg bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors border border-slate-200 dark:border-slate-600"
             title="Toggle Dark Mode"
           >
             {darkMode
-              ? <i className="fa-solid fa-sun text-yellow-400"></i>
-              : <i className="fa-solid fa-moon text-slate-600"></i>
+              ? <i className="fa-solid fa-sun text-yellow-400 text-sm"></i>
+              : <i className="fa-solid fa-moon text-slate-500 text-sm"></i>
             }
           </button>
 
           <button
             onClick={onToggleAutoReveal}
-            className="p-1.5 sm:p-2 rounded-lg bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
+            className={`p-1.5 sm:p-2 rounded-lg transition-colors border ${
+              autoRevealEnabled
+                ? 'bg-amber-100 dark:bg-amber-900/40 border-amber-300 dark:border-amber-700'
+                : 'bg-slate-100 dark:bg-slate-700 border-slate-200 dark:border-slate-600 hover:bg-slate-200 dark:hover:bg-slate-600'
+            }`}
             title={`Auto Check (${autoRevealEnabled ? 'on' : 'off'})`}
           >
-            <i className={`fa-solid fa-bolt ${autoRevealEnabled ? 'text-amber-500' : 'text-slate-400 dark:text-slate-500'}`}></i>
+            <i className={`fa-solid fa-bolt text-sm ${autoRevealEnabled ? 'text-amber-500' : 'text-slate-400 dark:text-slate-500'}`}></i>
           </button>
         </div>
+
       </div>
     </header>
   );
