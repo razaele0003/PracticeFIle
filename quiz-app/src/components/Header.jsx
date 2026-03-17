@@ -5,9 +5,9 @@ function Header({ totalQuestions, currentQuestionNum, onToggleDarkMode, darkMode
         <div>
           <h1 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <i className="fa-solid fa-scale-balanced text-blue-600 dark:text-blue-400"></i>
-            <span>RA 9292</span>
+            <span>ECE Law</span>
             <span className="text-slate-400 dark:text-slate-500 font-normal text-[10px] sm:text-xs ml-1 hidden sm:inline">
-              Electronics Engineering Law of 2004
+              RA 9292 & Fundamentals
             </span>
           </h1>
         </div>
