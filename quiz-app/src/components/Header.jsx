@@ -1,3 +1,5 @@
+import logo from '../assets/logo.png';
+
 function Header({
   questionSets,
   activeSetKey,
@@ -11,13 +13,15 @@ function Header({
   showResults,
 }) {
   return (
-    <header className="bg-white dark:bg-slate-800 shadow-sm sticky top-0 z-20 transition-colors">
+    <header className="bg-white dark:bg-slate-800 shadow-sm sticky top-0 z-20 transition-colors border-b border-slate-200 dark:border-slate-700">
       <div className="max-w-4xl mx-auto px-2 sm:px-4 py-2 flex items-center gap-2">
 
         {/* Brand name */}
-        <div className="flex items-center gap-1.5 flex-shrink-0">
-          <i className="fa-solid fa-scale-balanced text-blue-500 dark:text-blue-400 text-sm"></i>
-          <span className="font-bold text-sm text-slate-800 dark:text-white whitespace-nowrap">BombitzTheBomb</span>
+        <div className="flex items-center gap-2 flex-shrink-0">
+          <div className="h-8 w-8 rounded-full overflow-hidden border-2 border-blue-500/20 dark:border-blue-400/20 flex-shrink-0 shadow-sm">
+            <img src={logo} alt="Logo" className="h-full w-full object-cover" />
+          </div>
+          <span className="font-bold text-sm tracking-tight text-slate-800 dark:text-white whitespace-nowrap">BombitzTheBomb</span>
         </div>
 
         {/* Set filter dropdown */}
