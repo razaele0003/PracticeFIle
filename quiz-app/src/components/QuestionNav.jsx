@@ -65,7 +65,7 @@ function QuestionNav({ questions, currentIndex, revealState, userAnswers, matchi
             {questions.map((q, idx) => (
               <button
                 key={q.id}
-                onClick={() => { onGoToQuestion(idx); setOpen(false); }}
+                onClick={() => onGoToQuestion(idx)}
                 className={getDotClasses(q, idx)}
                 title={`Question ${idx + 1}`}
               >
