@@ -6,7 +6,7 @@ import { eceLawModule2Data } from './eceLawModule2';
 const ra9292 = quizData.map(q => ({
   ...q,
   id: `ra9292_${q.id}`,
-  set: 'RA 9292 – Electronics Engineering Law',
+  set: 'RA 9292 - Electronics Engineering Law',
 }));
 
 // ECE Law Module 1 — set labels already baked in
@@ -28,17 +28,17 @@ export const QUESTION_SETS = [
   },
   {
     key: 'ra9292',
-    label: 'RA 9292 – Electronics Engineering Law',
+    label: 'RA 9292 - Electronics Engineering Law',
     questions: ra9292,
   },
   {
     key: 'ecl_m1',
-    label: 'ECE Law – Module 1',
+    label: 'ECE Law - Module 1',
     questions: eclm1,
   },
   {
     key: 'ecl_m2',
-    label: 'ECE Law – Module 2',
+    label: 'ECE Law - Module 2',
     questions: eclm2,
   },
 ];
