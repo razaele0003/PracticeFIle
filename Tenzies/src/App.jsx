@@ -4,22 +4,26 @@ import Reacts from "react"
 
 export default function App() {
     const [number, setNumber] = Reacts.useState(generateAllNewDice())
-    
+
     function generateAllNewDice() {
         return new Array(10)
             .fill(0)
             .map(() => Math.ceil(Math.random() * 7))
     }
-    
-     const diceElements = number.map((num, index) => (
+
+    const diceElements = number.map((num, index) => (
         <Die key={index} value={num} />
     ))
-    
+    function rollDice() {
+        setNumber(generateAllNewDice())
+    }
+
     return (
         <main>
             <div className="dice-container">
-               {diceElements}
+                {diceElements}
             </div>
+            <button onClick={rollDice}>Roll</button>
         </main>
     )
 }
