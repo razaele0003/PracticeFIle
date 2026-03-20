@@ -23,7 +23,7 @@ export default function App() {
             <div className="dice-container">
                 {diceElements}
             </div>
-            <button onClick={rollsDice}>Roll</button>
+            <button onClick={rollDice}>Roll</button>
         </main>
     )
 }
