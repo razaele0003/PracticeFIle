@@ -10,6 +10,8 @@ function Header({
   darkMode,
   autoRevealEnabled,
   onToggleAutoReveal,
+  gestureModeEnabled,
+  onToggleGestureMode,
   showResults,
 }) {
   return (
@@ -71,6 +73,18 @@ function Header({
             title={`Auto Check (${autoRevealEnabled ? 'on' : 'off'})`}
           >
             <i className={`fa-solid fa-bolt text-sm ${autoRevealEnabled ? 'text-amber-500' : 'text-slate-400 dark:text-slate-500'}`}></i>
+          </button>
+
+          <button
+            onClick={onToggleGestureMode}
+            className={`p-1.5 sm:p-2 rounded-lg transition-colors border ${
+              gestureModeEnabled
+                ? 'bg-emerald-100 dark:bg-emerald-900/40 border-emerald-300 dark:border-emerald-700'
+                : 'bg-slate-100 dark:bg-slate-700 border-slate-200 dark:border-slate-600 hover:bg-slate-200 dark:hover:bg-slate-600'
+            }`}
+            title={`Gesture Mode (${gestureModeEnabled ? 'on' : 'off'})`}
+          >
+            <i className={`fa-solid fa-hand text-sm ${gestureModeEnabled ? 'text-emerald-500' : 'text-slate-400 dark:text-slate-500'}`}></i>
           </button>
         </div>
 

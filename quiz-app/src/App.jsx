@@ -8,6 +8,7 @@ import ResultsScreen from './components/ResultsScreen';
 import ShuffleModal from './components/ShuffleModal';
 import Toast from './components/Toast';
 import Footer from './components/Footer';
+import GestureMode from './components/GestureMode';
 
 const cloneQuestions = (arr) => JSON.parse(JSON.stringify(arr));
 
@@ -22,11 +23,18 @@ function App() {
   const [showModal, setShowModal] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [autoRevealEnabled, setAutoRevealEnabled] = useState(false);
+  const [gestureModeEnabled, setGestureModeEnabled] = useState(false);
   const [darkMode, setDarkMode] = useState(document.documentElement.classList.contains('dark'));
   const [toast, setToast] = useState({ show: false, on: true, message: '' });
 
+  // Ref to always-current values used inside the gesture callback
+  const gestureStateRef = useRef({});
+
   const shuffledLeftItemsRef = useRef({});
   const currentQuestion = quizData[currentQuestionIndex];
+
+  // Always keep ref in sync with latest render values (must be after currentQuestion)
+  gestureStateRef.current = { currentQuestion, userAnswers, revealState, matchingSelections, autoRevealEnabled };
 
   // ── Set filter ──────────────────────────────────────────────────────────────
   const changeSet = (key) => {
@@ -55,6 +63,45 @@ function App() {
     setAutoRevealEnabled(newVal);
     showToast(newVal ? 'Auto Check is on' : 'Auto Check is off', newVal);
   };
+
+  const toggleGestureMode = () => {
+    const newVal = !gestureModeEnabled;
+    setGestureModeEnabled(newVal);
+    if (newVal && !autoRevealEnabled) {
+      // Auto-enable Auto Check when Gesture Mode turns on
+      setAutoRevealEnabled(true);
+      showToast('Gesture Mode on • Auto Check enabled', true);
+    } else {
+      showToast(newVal ? 'Gesture Mode on' : 'Gesture Mode off', newVal);
+    }
+  };
+
+  // Called by GestureMode component when a stable gesture fires
+  const handleGestureDetected = useCallback((fingerCount) => {
+    const { currentQuestion, userAnswers, revealState, matchingSelections } = gestureStateRef.current;
+    if (!currentQuestion) return;
+    // Gesture mode only works on single-choice questions
+    if (currentQuestion.type === 'matching' || currentQuestion.type === 'multi') return;
+    if (revealState[currentQuestion.id]) return; // already revealed
+
+    const optionIndex = fingerCount - 1; // 1→0, 2→1, 3→2, 4→3
+    if (!currentQuestion.options || optionIndex >= currentQuestion.options.length) return;
+
+    const qID = currentQuestion.id;
+    const newAnswers = { ...userAnswers, [qID]: optionIndex };
+    setUserAnswers(newAnswers);
+    // Reveal immediately (auto-check)
+    setRevealState(prev => ({ ...prev, [qID]: true }));
+
+    // After 1.5 s, advance to next question
+    setTimeout(() => {
+      setCurrentQuestionIndex(prev => {
+        const nextIdx = prev + 1;
+        setSelectedLeftItem(null);
+        return nextIdx < quizData.length ? nextIdx : prev;
+      });
+    }, 1500);
+  }, []);
 
   const showToast = (message, on) => {
     setToast({ show: true, on, message });
@@ -328,6 +375,8 @@ function App() {
         darkMode={darkMode}
         autoRevealEnabled={autoRevealEnabled}
         onToggleAutoReveal={toggleAutoReveal}
+        gestureModeEnabled={gestureModeEnabled}
+        onToggleGestureMode={toggleGestureMode}
         showResults={showResults}
       />
 
@@ -395,6 +444,9 @@ function App() {
 
       <Footer activeSetKey={activeSetKey} questionSets={QUESTION_SETS} totalQuestions={quizData.length} />
       <ShuffleModal show={showModal} onClose={() => setShowModal(false)} onConfirm={confirmShuffle} />
+      {gestureModeEnabled && !showResults && (
+        <GestureMode onGestureDetected={handleGestureDetected} />
+      )}
     </div>
   );
 }
