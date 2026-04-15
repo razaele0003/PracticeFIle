@@ -1,22 +1,24 @@
-import Die from "./components/Die"
-import Reacts from "react"
-
+import { useState } from "react"
+import Die from "./Die"
 
 export default function App() {
-    const [number, setNumber] = Reacts.useState(generateAllNewDice())
+
+    const [dice, setDice] = useState(generateAllNewDice())
 
     function generateAllNewDice() {
         return new Array(10)
             .fill(0)
-            .map(() => Math.ceil(Math.random() * 7))
+            .map(() => ({
+                value: Math.ceil(Math.random() * 6),
+                isHeld: false
+            }))
     }
 
-    const diceElements = number.map((num, index) => (
-        <Die key={index} value={num} />
-    ))
     function rollDice() {
-        setNumber(generateAllNewDice())
+        setDice(generateAllNewDice())
     }
+
+    const diceElements = dice.map(num => <Die value={num.value} />)
 
     return (
         <main>
