@@ -11,7 +11,7 @@ export default function App() {
             .fill(0)
             .map(() => ({
                 value: Math.ceil(Math.random() * 6),
-                isHeld: false,
+                isHeld: true,
                 id: nanoid(),
             }))
     }
@@ -20,7 +20,7 @@ export default function App() {
         setDice(generateAllNewDice())
     }
 
-    const diceElements = dice.map(num => <Die value={num.value} key={num.id} />)
+    const diceElements = dice.map(num => <Die value={num.value} key={num.id} isHeld={num.isHeld} />)
     return (
         <main>
             <div className="dice-container">
