@@ -1,4 +1,4 @@
-import logo from '../assets/logo.png';
+import profileImage from '../assets/anton.jpg';
 
 function Header({
   questionSets,
@@ -21,7 +21,7 @@ function Header({
         {/* Brand name */}
         <div className="flex items-center gap-2 flex-shrink-0">
           <div className="h-8 w-8 rounded-full overflow-hidden border-2 border-blue-500/20 dark:border-blue-400/20 flex-shrink-0 shadow-sm">
-            <img src={logo} alt="Logo" className="h-full w-full object-cover" />
+            <img src={profileImage} alt="Profile" className="h-full w-full object-cover" />
           </div>
           <span className="font-bold text-sm tracking-tight text-slate-800 dark:text-white whitespace-nowrap">BombitzTheBomb</span>
         </div>
