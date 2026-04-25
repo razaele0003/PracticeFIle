@@ -33,14 +33,18 @@ type Order = {
 }
 
 
-function addNewPizza(name, price) {
+function addNewPizza(name: string, price: number) {
     menu.push({ name, price })
 }
 
-function placeOrder(pizzaName) {
+function placeOrder(pizzaName: string) {
     const selectedPizza = menu.find(pizzaObj => pizzaObj.name === pizzaName)
+    if (!selectedPizza) {
+        console.error(`${pizzaName} does not exist in the menu`)
+        return
+    }
     cashInRegister += selectedPizza.price
-    const newOrder = { id: nextOrderId++, pizza: selectedPizza, status: "ordered" }
+    const newOrder: Order = { id: nextOrderId++, pizza: selectedPizza, status: "ordered" }
     orderQueue.push(newOrder)
     return newOrder
 }
